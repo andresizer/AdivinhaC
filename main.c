@@ -15,20 +15,30 @@ int numRandomico() {
 
 int main () {
 restart:
-int numero;
-int i = 10;
+int numero, i, n;
 char r;
 int numCerto = numRandomico();
+
+
+
+
+//Define a primeira rodada: n = 1
+n = 0;
+printf("Seja bem vindo ao jogo de adivinhação!\nEscolha a quantidade de tentativas:\n");
+scanf("%i",&i);
+
     // Entra em um laço de repetição e permanece nele se o número estiver errado ou as tentativas não forem esgotadas
     while(numCerto != numero && i > 0){
         // i é o numero de tentativas. começa com 10 e após a 1ª tentativa vai para 9
-        if (i == 10){
-            printf("Seja bem vindo ao jogo de adivinhação!\nVocê consegue adivinhar qual número eu estou pensando?\nVocê tem 10 tentativas!\n");
+        if (n == 0){
+            
+            printf("Você consegue adivinhar qual número eu estou pensando?\n");
             printf("Dica: É um número de 1 a 100\n");
             scanf("%i",&numero);
-            i = 9;
+            i--;
+            n++;
         // após a 1ª tentativa entra na condicional,     
-        }else if (i < 10){
+        }else if (n > 0){
             // se o número digitado for menor que 1 ou maior que 100, avisa que o número é inválido e não desconta uma jogada
             if (numero < 1 || numero >100){
                 printf("Digite um número entre 1 e 100!\n");
@@ -41,12 +51,14 @@ int numCerto = numRandomico();
                 printf("Você tem %i tentativas!\nTente novamente: ",i);
                 scanf("%i",&numero);
                 i--;
+                n++;
             // se o número for menor que o número certo, o jogo avisa que o número certo é maior e desconta uma jogada    
             }else if(numero < numCerto){
                 printf("Errou! Tente um número é maior!\n");
                 printf("Você tem %i tentativas!\nTente novamente: ",i);
                 scanf("%i",&numero);
                 i--;
+                n++;
             }
         }
     }
@@ -56,7 +68,7 @@ int numCerto = numRandomico();
     if (numCerto == numero){
         printf("Parabéns! Você acertou!\n");
         printf("Eu estava pensando no número %d\n", numCerto);
-        printf("Você demorou %i tentativas para acertar!",10-i);
+        printf("Você demorou %i tentativas para acertar!",i + n);
         return 0;
     //Derrota :( nesse caso o jogo pergunta se o jogador quer recomeçar a partida.    
     }else if(i == 0){
